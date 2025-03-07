@@ -9,5 +9,6 @@ public class MooBooSpringApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MooBooSpringApplication.class, args);
+		System.out.println("Hello World");
 	}
 }
