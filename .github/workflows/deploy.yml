@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  CI-CD-TEST:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: SSH를 사용하여 서버에 접속
+        run: |
+          sudo apt-get install -y sshpass
+          sshpass -p "${{ secrets.PASSWORD }}" ssh ${{ secrets.HOST_NAME }}@${{ secrets.SERVER_IP }} << 'EOF'
+            echo "접속 성공" >> ./hello.txt
+          EOF
+
