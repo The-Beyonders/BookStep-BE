@@ -38,6 +38,13 @@ dependencies {
 	// local에서 사용할 DB - h2
 	runtimeOnly 'com.h2database:h2'
 
+	// SQL 모니터링 라이브러리
+	// FIXME 운영 환경에서 제거할 것
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+
+	// Swagger https://springdoc.org/#Introduction
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+
 }
 
 tasks.named('test') {
