@@ -35,8 +35,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	// local에서 사용할 DB - h2
+	// 로컬 환경 h2 데이터베이스
 	runtimeOnly 'com.h2database:h2'
+
+	// 개발 환경 mysql 데이터베이스
+	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '9.1.0'
 
 	// SQL 모니터링 라이브러리
 	// FIXME 운영 환경에서 제거할 것
