@@ -19,7 +19,7 @@ jobs:
           java-version: 21
 
       - name: resources 폴더 생성
-        run: mkdir ./src/main/resources
+        run: mkdir -p ./src/main/resources
 
       - name: application-local.yml 파일 만들기 개발 환경
         run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.yml
