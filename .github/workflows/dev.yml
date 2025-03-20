@@ -19,6 +19,9 @@ jobs:
           java-version: 21
 
       - name: application-local.yml 파일 만들기 개발 환경
+        run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.yml
+
+      - name: application-local.yml 파일 만들기 개발 환경
         run: echo "${{ secrets.APPLICATION_PROPERTIES_LOCAL }}" > ./src/main/resources/application-local.yml
 
       - name: application-dev.yml 파일 만들기 개발 환경
