@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
@@ -19,13 +18,11 @@ public class BookApiServiceImpl implements BookApiService {
 
     @Override
     public Mono<List<BookApi>> searchBooks(SearchParam searchParam) {
-        System.out.println("서비스 실행1 ");
         return bookApiClient.getBooksBySearchParam(searchParam);
     }
 
     @Override
     public Mono<BookApi> searchBook(String isbn13) {
-        System.out.println("서비스 실행2 ");
         return bookApiClient.getBookByIsbn(isbn13);
     }
 }

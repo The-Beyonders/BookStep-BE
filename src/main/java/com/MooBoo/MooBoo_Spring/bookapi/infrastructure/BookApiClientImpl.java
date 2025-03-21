@@ -58,9 +58,6 @@ public class BookApiClientImpl implements BookApiClient {
      */
     @Override
     public Mono<BookApi> getBookByIsbn(String isbn) {
-        /**
-         * 구독 체인 정의
-         */
         Mono<BookApi> result = bookApiClient.get().uri(uriBuilder -> uriBuilder
                             .path("/ItemLookUp.aspx")
                             .queryParam("ItemIdType", "ISBN13")
@@ -81,7 +78,7 @@ public class BookApiClientImpl implements BookApiClient {
                     return Mono.just(mapped);
 
                 })
-                .subscribeOn(Schedulers.boundedElastic()); // 별도의 스레드가 처리하도록 지정
+                .subscribeOn(Schedulers.boundedElastic());
 
         return result;
     }
