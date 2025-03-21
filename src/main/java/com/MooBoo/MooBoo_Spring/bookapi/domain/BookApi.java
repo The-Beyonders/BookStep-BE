@@ -1,9 +1,6 @@
 package com.MooBoo.MooBoo_Spring.bookapi.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 외부 도서 API를 위한 도메인 엔티티
@@ -19,7 +16,7 @@ public class BookApi {
     private String cover;
     private String publisher;
     private String pubDate;
-    private Integer itemPage;
+    private String itemPage;
 
 
     //== 변환 메서드 ==//
@@ -32,7 +29,21 @@ public class BookApi {
                 .cover(bookItem.getCover())
                 .publisher(bookItem.getPublisher())
                 .pubDate(bookItem.getPubDate())
-                .itemPage(bookItem.getItemPage())
+                .itemPage(bookItem.getBookInfo().getItemPage())
                 .build();
     }
+
+    public BookSearchResponse toBookSearchResponse() {
+        return BookSearchResponse.builder()
+                .isbn13(this.isbn13)
+                .title(this.title)
+                .description(this.description)
+                .author(this.author)
+                .cover(this.cover)
+                .publisher(this.publisher)
+                .pubDate(this.pubDate)
+                .itemPage(this.itemPage)
+                .build();
+    }
+
 }

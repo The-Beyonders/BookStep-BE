@@ -1,5 +1,6 @@
 package com.MooBoo.MooBoo_Spring.bookapi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**

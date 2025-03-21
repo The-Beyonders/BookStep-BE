@@ -1,5 +1,6 @@
 package com.MooBoo.MooBoo_Spring.bookapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,5 +18,8 @@ public class BookItem {
     private String cover;
     private String publisher;
     private String pubDate;
-    private Integer itemPage;
+    @JsonProperty("subInfo")
+    private BookInfo bookInfo;
+
+
 }

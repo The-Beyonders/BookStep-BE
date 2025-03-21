@@ -26,7 +26,7 @@ public class BookApiTest {
         String bookApi1_cover = (String) ReflectionTestUtils.getField(bookApi1, "cover");
         String bookApi1_publisher = (String) ReflectionTestUtils.getField(bookApi1, "publisher");
         String bookApi1_pubDate = (String) ReflectionTestUtils.getField(bookApi1, "pubDate");
-        Integer bookApi1_itemPage = (Integer) ReflectionTestUtils.getField(bookApi1, "itemPage");
+        String bookApi1_itemPage = (String) ReflectionTestUtils.getField(bookApi1, "itemPage");
 
         //then
         Assertions.assertThat(bookApi1_isbn13).isEqualTo("9788994492049");
@@ -71,7 +71,7 @@ public class BookApiTest {
 
     private static BookApiResponse getBookApiResponse() {
         BookInfo bookInfo1 = new BookInfo();
-        bookInfo1.setItemPage("553");
+        bookInfo1.setItemPage("533");
 
         BookItem bookItem1 = BookItem.builder()
                 .isbn13("9788994492049")
@@ -85,7 +85,7 @@ public class BookApiTest {
                 .build();
 
         BookInfo bookInfo2 = new BookInfo();
-        bookInfo2.setItemPage("553");
+        bookInfo2.setItemPage("533");
 
         BookItem bookItem2 = BookItem.builder()
 

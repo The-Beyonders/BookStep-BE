@@ -3,9 +3,13 @@ package com.MooBoo.MooBoo_Spring.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Map;
+import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
+
 
 @Configuration
 public class WebClientConfig {
@@ -23,7 +27,21 @@ public class WebClientConfig {
     public WebClient bookApiClient() {
         return WebClient.builder()
                 .baseUrl(baseUrl)
-                .defaultUriVariables(Map.of("ttbkey", apikey))
+                .filter((request, next) -> {         // 필수 파라미터 추가
+                    URI originalUri = request.url();
+
+                    URI newUri = UriComponentsBuilder.fromUri(originalUri)
+                            .queryParam("ttbkey", apikey)
+                            .queryParam("Version", "20131101")
+                            .build()
+                            .toUri();
+
+                    ClientRequest newRequest = ClientRequest.from(request)
+                            .url(newUri)
+                            .build();
+
+                    return next.exchange(newRequest);
+                })
                 .build();
     }
 }

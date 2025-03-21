@@ -1,9 +1,9 @@
 package com.MooBoo.MooBoo_Spring.bookapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +13,13 @@ import java.util.List;
 @Builder
 public class BookApiResponse {
 
-    private Integer totalResults;
-    private String query;
-    private List<BookItem> item = new ArrayList<>();
+    @JsonProperty("totalResults")
+    public Integer totalResults;
+    @JsonProperty("query")
+    public String query;
+    @JsonProperty("item")
+    public List<BookItem> item;
+
+
 
 }
