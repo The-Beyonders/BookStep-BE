@@ -1,11 +1,12 @@
-package com.MooBoo.MooBoo_Spring.bookapi.api;
+package com.MooBoo.MooBoo_Spring.bookapi.controller;
 
-import com.MooBoo.MooBoo_Spring.common.dto.Result;
-import com.MooBoo.MooBoo_Spring.bookapi.api.port.BookApiService;
-import com.MooBoo.MooBoo_Spring.bookapi.api.dto.BookSearchResponse;
-import com.MooBoo.MooBoo_Spring.bookapi.api.dto.SearchParam;
+import com.MooBoo.MooBoo_Spring.Result;
+import com.MooBoo.MooBoo_Spring.bookapi.controller.port.BookApiService;
+import com.MooBoo.MooBoo_Spring.bookapi.domain.BookSearchResponse;
+import com.MooBoo.MooBoo_Spring.bookapi.domain.SearchParam;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,33 +23,27 @@ public class BookApiController {
     /**
      * 책 목록 조회 - 책 검색할 때 사용
      */
-    // FIXME API 엔드 포인트를 변경해줄 필요가 있음
-    @GetMapping("/api/v1/books/search")
+    @GetMapping("/api/v1/books-search")
     public Mono<Result<List<BookSearchResponse>>> searchBooksV1(SearchParam searchParam) {
         return bookApiService.searchBooks(searchParam)
                 .map(bookApis -> bookApis.stream()
                         .map(bookApi -> bookApi.toBookSearchResponse())
                         .toList())
-                .map(bookSearchResponses -> Result.wrapper("책 목록 조회", "OK", bookSearchResponses))
+                .map(bookSearchResponses -> Result.wrapper("책 목록 조회", HttpStatus.OK, bookSearchResponses))
                 .onErrorResume(e ->
-                        Mono.just(Result.wrapper("요청 실패: " + e.getMessage(), "500", null))
+                        Mono.just(Result.wrapper("요청 실패: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null))
                 );
     }
 
     /**
      * 책 한 권 자세하게 조회
      */
-    // FIXME API 엔드 포인트를 변경해줄 필요가 있음
-    @GetMapping("/api/v1/books/search/{isbn}")
+    @GetMapping("/api/v1/books-search/{isbn}")
     public Mono<Result<BookSearchResponse>> searchBookV1(@PathVariable("isbn") String isbn) {
         return bookApiService.searchBook(isbn)
-                .map(bookApi -> Result.wrapper("책 자세히 검색", "OK", bookApi.toBookSearchResponse()))
+                .map(bookApi -> Result.wrapper("책 자세히 검색", HttpStatus.OK, bookApi.toBookSearchResponse()))
                 .onErrorResume(e ->
-                        Mono.just(Result.wrapper("요청 실패: " + e.getMessage(), "500", null))
+                        Mono.just(Result.wrapper("요청 실패: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null))
                 );
     }
-
-
-
-
 }
