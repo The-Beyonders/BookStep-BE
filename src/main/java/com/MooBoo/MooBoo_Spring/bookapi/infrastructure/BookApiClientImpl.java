@@ -16,11 +16,6 @@ import reactor.core.scheduler.Schedulers;
 
 import java.util.List;
 
-
-/**
- *
- */
-
 @Component
 @RequiredArgsConstructor
 public class BookApiClientImpl implements BookApiClient {
@@ -36,13 +31,13 @@ public class BookApiClientImpl implements BookApiClient {
          * 구독 체인 정의
          */
         Mono<List<BookApi>> result = bookApiClient.get().uri(uriBuilder -> uriBuilder
-                            .path("/ItemSearch.aspx")
-                            .queryParam("Query", searchParam.getKeyword())
-                            .queryParam("MaxResults", searchParam.getMaxResults())
-                            .queryParam("OutPut", searchParam.getFormat())
-                            .build(false))
-                .retrieve()                                                               // 요청 전송
-                .bodyToMono(BookApiResponse.class)                                        // JSON -> 객체로 변환(역직렬화)
+                    .path("/ItemSearch.aspx")
+                    .queryParam("Query", searchParam.getKeyword())
+                    .queryParam("MaxResults", searchParam.getMaxResults())
+                    .queryParam("OutPut", searchParam.getFormat())
+                    .build())
+                .retrieve()                                                                             // 요청 전송
+                .bodyToMono(BookApiResponse.class)                                                      // JSON -> 객체로 변환(역직렬화)
                 .map(bookApiResponse -> bookApiResponse.getItem())
                 .map(items -> items.stream()                                              // BookItem(DTO) -> BookApi(도메인)
                         .map(item -> BookApi.fromBookItem(item))
@@ -50,7 +45,6 @@ public class BookApiClientImpl implements BookApiClient {
                 ).subscribeOn(Schedulers.boundedElastic()); // 별도의 스레드가 처리하도록 지정
 
         return result;
-
     }
 
     /**

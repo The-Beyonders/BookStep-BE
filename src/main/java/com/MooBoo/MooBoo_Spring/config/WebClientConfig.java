@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -27,13 +29,13 @@ public class WebClientConfig {
     public WebClient bookApiClient() {
         return WebClient.builder()
                 .baseUrl(baseUrl)
+                .defaultHeader(HttpHeaders.ACCEPT_ENCODING, "gzip, deflate")
                 .filter((request, next) -> {         // 필수 파라미터 추가
                     URI originalUri = request.url();
-
                     URI newUri = UriComponentsBuilder.fromUri(originalUri)
                             .queryParam("ttbkey", apikey)
                             .queryParam("Version", "20131101")
-                            .build()
+                            .build(true)
                             .toUri();
 
                     ClientRequest newRequest = ClientRequest.from(request)
