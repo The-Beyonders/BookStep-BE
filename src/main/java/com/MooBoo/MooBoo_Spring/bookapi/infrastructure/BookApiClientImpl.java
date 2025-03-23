@@ -8,6 +8,7 @@ import com.MooBoo.MooBoo_Spring.exception.BookApiBadRequestException;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -37,6 +38,14 @@ public class BookApiClientImpl implements BookApiClient {
                     .queryParam("OutPut", searchParam.getFormat())
                     .build())
                 .retrieve()                                                                             // 요청 전송
+                .onStatus(HttpStatusCode::is4xxClientError, response -> {
+                    System.out.println("4xx Client Error. response = " + response.statusCode());        // 적절한 예외를 만들어 Mono.error()로 반환
+                    return response.createException();
+                })
+                .onStatus(HttpStatusCode::is5xxServerError, response -> {
+                    System.out.println("5xx Server Error. response = " + response.statusCode());
+                    return response.createException();
+                })
                 .bodyToMono(BookApiResponse.class)                                                      // JSON -> 객체로 변환(역직렬화)
                 .map(bookApiResponse -> bookApiResponse.getItem())
                 .map(items -> items.stream()                                              // BookItem(DTO) -> BookApi(도메인)
@@ -59,6 +68,14 @@ public class BookApiClientImpl implements BookApiClient {
                             .queryParam("OutPut", "JS")
                             .build())
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, response -> {
+                    System.out.println("4xx Client Error. response = " + response.statusCode());
+                    return response.createException();
+                })
+                .onStatus(HttpStatusCode::is5xxServerError, response -> {
+                    System.out.println("5xx Server Error. response = " + response.statusCode());
+                    return response.createException();
+                })
                 .bodyToMono(BookApiResponse.class)
                 .map(bookApiResponse -> bookApiResponse.getItem())
                 .flatMap(items -> { // Mono/Flux를 변환한다 (값 → Mono/Flux)
