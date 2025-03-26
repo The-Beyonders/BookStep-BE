@@ -1,8 +1,8 @@
 package com.MooBoo.MooBoo_Spring.medium;
 
-import com.MooBoo.MooBoo_Spring.bookapi.domain.BookApi;
-import com.MooBoo.MooBoo_Spring.bookapi.domain.SearchParam;
-import com.MooBoo.MooBoo_Spring.bookapi.service.port.BookApiClient;
+import com.MooBoo.MooBoo_Spring.domain.bookapi.BookApi;
+import com.MooBoo.MooBoo_Spring.adapter.port.inbound.api.dto.SearchParam;
+import com.MooBoo.MooBoo_Spring.application.port.outbound.external.BookApiClient;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

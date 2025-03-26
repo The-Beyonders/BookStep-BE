@@ -1,4 +1,4 @@
-package com.MooBoo.MooBoo_Spring.config;
+package com.MooBoo.MooBoo_Spring.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

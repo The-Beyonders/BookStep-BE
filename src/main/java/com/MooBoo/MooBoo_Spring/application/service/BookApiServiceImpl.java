@@ -1,9 +1,9 @@
-package com.MooBoo.MooBoo_Spring.bookapi.service;
+package com.MooBoo.MooBoo_Spring.application.service;
 
-import com.MooBoo.MooBoo_Spring.bookapi.controller.port.BookApiService;
-import com.MooBoo.MooBoo_Spring.bookapi.domain.BookApi;
-import com.MooBoo.MooBoo_Spring.bookapi.domain.SearchParam;
-import com.MooBoo.MooBoo_Spring.bookapi.service.port.BookApiClient;
+import com.MooBoo.MooBoo_Spring.application.port.inbound.BookApiService;
+import com.MooBoo.MooBoo_Spring.domain.bookapi.BookApi;
+import com.MooBoo.MooBoo_Spring.adapter.port.inbound.api.dto.SearchParam;
+import com.MooBoo.MooBoo_Spring.application.port.outbound.external.BookApiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

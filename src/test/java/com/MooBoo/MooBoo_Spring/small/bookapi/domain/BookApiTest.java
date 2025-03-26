@@ -1,6 +1,10 @@
 package com.MooBoo.MooBoo_Spring.small.bookapi.domain;
 
-import com.MooBoo.MooBoo_Spring.bookapi.domain.*;
+import com.MooBoo.MooBoo_Spring.adapter.port.outbound.external.dto.BookApiResponse;
+import com.MooBoo.MooBoo_Spring.adapter.port.outbound.external.dto.BookInfo;
+import com.MooBoo.MooBoo_Spring.adapter.port.outbound.external.dto.BookItem;
+import com.MooBoo.MooBoo_Spring.adapter.port.inbound.api.dto.BookSearchResponse;
+import com.MooBoo.MooBoo_Spring.domain.bookapi.BookApi;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;

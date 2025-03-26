@@ -1,4 +1,4 @@
-package com.MooBoo.MooBoo_Spring.bookapi.domain;
+package com.MooBoo.MooBoo_Spring.adapter.port.outbound.external.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

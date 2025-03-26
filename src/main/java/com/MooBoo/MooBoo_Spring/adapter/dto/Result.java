@@ -1,4 +1,4 @@
-package com.MooBoo.MooBoo_Spring;
+package com.MooBoo.MooBoo_Spring.adapter.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

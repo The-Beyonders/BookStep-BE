@@ -1,10 +1,10 @@
-package com.MooBoo.MooBoo_Spring.bookapi.infrastructure;
+package com.MooBoo.MooBoo_Spring.adapter.port.outbound.external;
 
-import com.MooBoo.MooBoo_Spring.bookapi.domain.BookApi;
-import com.MooBoo.MooBoo_Spring.bookapi.domain.BookApiResponse;
-import com.MooBoo.MooBoo_Spring.bookapi.domain.SearchParam;
-import com.MooBoo.MooBoo_Spring.bookapi.service.port.BookApiClient;
-import com.MooBoo.MooBoo_Spring.exception.BookApiBadRequestException;
+import com.MooBoo.MooBoo_Spring.domain.bookapi.BookApi;
+import com.MooBoo.MooBoo_Spring.adapter.port.outbound.external.dto.BookApiResponse;
+import com.MooBoo.MooBoo_Spring.adapter.port.inbound.api.dto.SearchParam;
+import com.MooBoo.MooBoo_Spring.application.port.outbound.external.BookApiClient;
+import com.MooBoo.MooBoo_Spring.domain.bookapi.exception.BookApiBadRequestException;
 
 import lombok.RequiredArgsConstructor;
 
