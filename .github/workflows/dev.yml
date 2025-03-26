@@ -36,15 +36,6 @@ jobs:
       - name: application-local.yml 파일 만들기 개발 환경
         run: echo "${{ secrets.APPLICATION_PROPERTIES_TEST }}" > ./src/test/resources/application.yml
 
-      - name: application.yml 찍어보기
-        run: cat ./src/main/resources/application.yml
-
-      - name: application-local.yml 찍어보기
-        run: cat ./src/main/resources/application-local.yml
-
-      - name: application-dev.yml 찍어보기
-        run: cat ./src/main/resources/application-dev.yml
-
       - name: GitAction에 Mysql 설정 빌드하기 위함
         uses: mirromutth/mysql-action@v1.1
         with:
@@ -53,7 +44,6 @@ jobs:
           mysql root password: ${{ secrets.ROOT_PASSWORD }}
           mysql user: ${{ secrets.DB_USER }}
           mysql password: ${{ secrets.DB_PASSWORD }}
-
 
       - name: Set Spring Profile
         run: echo "SPRING_PROFILES_ACTIVE=dev" >> $GITHUB_ENV
