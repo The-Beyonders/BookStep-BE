@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,10 @@ public class BookApiController {
      */
     @GetMapping("/api/v1/books-search")
     public Mono<Result<List<BookSearchResponse>>> searchBooksV1(SearchParam searchParam) {
+        if (searchParam.getKeyword().trim().equals("")) {
+            return Mono.just(Result.wrapper("책 목록 조회", HttpStatus.OK, new ArrayList<BookSearchResponse>()));
+        }
+
         return bookApiService.searchBooks(searchParam)
                 .map(bookApis -> bookApis.stream()
                         .map(bookApi -> bookApi.toBookSearchResponse())
