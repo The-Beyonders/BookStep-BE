@@ -61,28 +61,25 @@ public class BookApiClientImpl implements BookApiClient {
      */
     @Override
     public Mono<BookApi> getBookByIsbn(String isbn) {
+        System.out.println("isbn = " + isbn);
         Mono<BookApi> result = bookApiClient.get().uri(uriBuilder -> uriBuilder
-                            .path("/ItemLookUp.aspx")
-                            .queryParam("ItemIdType", "ISBN13")
-                            .queryParam("ItemId", isbn)
-                            .queryParam("OutPut", "JS")
-                            .build())
+                        .path("/ItemLookUp.aspx")
+                        .queryParam("ItemIdType", "ISBN13")
+                        .queryParam("ItemId", isbn)
+                        .queryParam("OutPut", "JS")
+                        .build())
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, response -> {
-                    System.out.println("4xx Client Error. response = " + response.statusCode());
-                    return response.createException();
-                })
-                .onStatus(HttpStatusCode::is5xxServerError, response -> {
-                    System.out.println("5xx Server Error. response = " + response.statusCode());
-                    return response.createException();
-                })
                 .bodyToMono(BookApiResponse.class)
-                .map(bookApiResponse -> bookApiResponse.getItem())
+                .map(bookApiResponse -> {
+                    System.out.println("bookApiResponse = " + bookApiResponse);
+                    return bookApiResponse.getItem();
+                })
                 .flatMap(items -> { // Mono/Flux를 변환한다 (값 → Mono/Flux)
 
                     if (items.isEmpty())
                         return Mono.error(new BookApiBadRequestException("도서 정보를 찾을 수 없습니다."));
 
+                    System.out.println("items = " + items);
                     BookApi mapped = items.stream()
                             .map(item -> BookApi.fromBookItem(item))
                             .toList().get(0);
