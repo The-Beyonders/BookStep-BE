@@ -30,6 +30,12 @@ jobs:
       - name: application-dev.yml 파일 만들기 개발 환경
         run: echo "${{ secrets.APPLICATION_PROPERTIES_DEV }}" > ./src/main/resources/application-dev.yml
 
+      - name: test/resources 폴더 생성
+        run: mkdir -p ./src/test/resources
+
+      - name: application-local.yml 파일 만들기 개발 환경
+        run: echo "${{ secrets.APPLICATION_PROPERTIES_TEST }}" > ./src/test/resources/application.yml
+
       - name: application.yml 찍어보기
         run: cat ./src/main/resources/application.yml
 
